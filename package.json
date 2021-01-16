@@ -1,0 +1,14 @@
+{
+  "name": "crud-app",
+  "version": "1.0.0",
+  "description": "knowledge base",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Atul Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
