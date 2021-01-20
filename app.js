@@ -5,9 +5,11 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+const config = require('./config/database')
 
 
-mongoose.connect('mongodb://localhost/nodekb', { useNewUrlParser: true,useUnifiedTopology: true  });
+mongoose.connect(config.database, { useNewUrlParser: true,useUnifiedTopology: true  });
 let db = mongoose.connection;
 
 
@@ -76,7 +78,19 @@ app.use(expressValidator({
             value: value
         }
     }
-}))
+}));
+
+//Passport Config
+require('./config/passport')(passport);
+//Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.get('*', (req, res, next) => {
+    res.locals.user = req.user || null;
+    next();
+});
 
 
 //Home route
